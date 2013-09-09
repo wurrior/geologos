@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     settingswindow.cpp \
-    control.cpp
+    control.cpp \
+    canvas.cpp
 
 HEADERS  += mainwindow.h \
     settingswindow.h \
-    control.h
+    control.h \
+    canvas.h
 
 FORMS    += mainwindow.ui \
     settingswindow.ui
