@@ -44,8 +44,18 @@
     </property>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menuMeasure">
+    <property name="title">
+     <string>Measure</string>
+    </property>
+    <addaction name="actionAir"/>
+    <addaction name="actionSample"/>
+    <addaction name="separator"/>
+    <addaction name="actionZeroing"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
+   <addaction name="menuMeasure"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
@@ -60,6 +70,9 @@
   <action name="actionQuit">
    <property name="text">
     <string>Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Q</string>
    </property>
   </action>
   <action name="actionSettings">
@@ -76,10 +89,40 @@
    <property name="text">
     <string>New...</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+N, U</string>
+   </property>
   </action>
   <action name="actionSave">
    <property name="text">
     <string>Save...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionAir">
+   <property name="text">
+    <string>Air</string>
+   </property>
+   <property name="shortcut">
+    <string>I</string>
+   </property>
+  </action>
+  <action name="actionSample">
+   <property name="text">
+    <string>Sample</string>
+   </property>
+   <property name="shortcut">
+    <string>M</string>
+   </property>
+  </action>
+  <action name="actionZeroing">
+   <property name="text">
+    <string>Zeroing</string>
+   </property>
+   <property name="shortcut">
+    <string>Z</string>
    </property>
   </action>
  </widget>
