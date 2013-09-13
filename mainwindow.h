@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QCloseEvent>
 #include "settingswindow.h"
+#include "control.h"
 
 namespace Ui {
 class MainWindow;
@@ -26,9 +27,14 @@ private slots:
     void on_actionSettings_triggered();
     void on_actionAbout_triggered();
 
+    void on_actionStop_triggered();
+
+    void on_actionSave_triggered();
+
 private:
     Ui::MainWindow *ui;
     SettingsWindow *sw;
+    Control *control;
 };
 
 #endif // MAINWINDOW_H

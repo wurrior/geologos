@@ -51,13 +51,13 @@
     <attribute name="title">
      <string>General</string>
     </attribute>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>20</x>
        <y>30</y>
        <width>171</width>
-       <height>22</height>
+       <height>48</height>
       </rect>
      </property>
      <layout class="QFormLayout" name="formLayout_2">
@@ -76,6 +76,23 @@
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Choose COM port for the measurement device&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
+        <property name="editable">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="lineEdit">
+        <property name="text">
+         <string>LPT1</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Printer port:</string>
+        </property>
        </widget>
       </item>
      </layout>
@@ -85,7 +102,7 @@
     <attribute name="title">
      <string>Advanced</string>
     </attribute>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -138,6 +155,19 @@
        </widget>
       </item>
      </layout>
+    </widget>
+    <widget class="QCheckBox" name="checkBox">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>30</y>
+       <width>141</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Enable Manual movement</string>
+     </property>
     </widget>
    </widget>
   </widget>

@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QMessageBox>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -9,12 +10,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     sw = new SettingsWindow(this);
     readSettings();
+    control = new Control(this);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
     delete sw;
+    delete control;
 }
 
 void MainWindow::on_actionSettings_triggered()
@@ -54,4 +57,16 @@ void MainWindow::on_actionAbout_triggered()
     msgBox.setText("Geologos v1.0\n\nStemlux Systems Oy\n2013");
     msgBox.setIcon(QMessageBox::Information);
     msgBox.exec();
+}
+
+void MainWindow::on_actionStop_triggered()
+{
+    control->stop();
+}
+
+void MainWindow::on_actionSave_triggered()
+{
+    QString fileName = QFileDialog::getSaveFileName(this,
+             tr("Save Measurement Data"), "",
+             tr("Geologos data (*.sgd);;All Files (*)"));
 }

@@ -16,12 +16,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     settingswindow.cpp \
     control.cpp \
-    canvas.cpp
+    canvas.cpp \
+    parallelportdriver.cpp
 
 HEADERS  += mainwindow.h \
     settingswindow.h \
     control.h \
-    canvas.h
+    canvas.h \
+    parallelportdriver.h
 
 FORMS    += mainwindow.ui \
     settingswindow.ui
