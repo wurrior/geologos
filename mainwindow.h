@@ -31,10 +31,19 @@ private slots:
 
     void on_actionSave_triggered();
 
+    void on_actionDown_triggered();
+
+    void on_actionUp_triggered();
+
+    void on_actionStep_back_triggered();
+
+    void on_actionCalibrate_triggered();
+
 private:
     Ui::MainWindow *ui;
     SettingsWindow *sw;
     Control *control;
+
 };
 
 #endif // MAINWINDOW_H

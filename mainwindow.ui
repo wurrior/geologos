@@ -20,7 +20,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -48,8 +48,8 @@
     <property name="title">
      <string>Measure</string>
     </property>
+    <addaction name="actionCalibrate"/>
     <addaction name="actionAir"/>
-    <addaction name="actionSample"/>
     <addaction name="separator"/>
     <addaction name="actionZeroing"/>
     <addaction name="separator"/>
@@ -62,8 +62,9 @@
     <addaction name="actionUp"/>
     <addaction name="actionDown"/>
     <addaction name="separator"/>
-    <addaction name="actionBack"/>
+    <addaction name="actionBackwards"/>
     <addaction name="actionForwards"/>
+    <addaction name="actionStep_back"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -114,14 +115,6 @@
     <string>I</string>
    </property>
   </action>
-  <action name="actionSample">
-   <property name="text">
-    <string>Sample</string>
-   </property>
-   <property name="shortcut">
-    <string>M</string>
-   </property>
-  </action>
   <action name="actionZeroing">
    <property name="text">
     <string>Zeroing</string>
@@ -148,7 +141,7 @@
     <string>Down</string>
    </property>
   </action>
-  <action name="actionBack">
+  <action name="actionBackwards">
    <property name="text">
     <string>Backwards</string>
    </property>
@@ -156,6 +149,16 @@
   <action name="actionForwards">
    <property name="text">
     <string>Forwards</string>
+   </property>
+  </action>
+  <action name="actionStep_back">
+   <property name="text">
+    <string>Step back</string>
+   </property>
+  </action>
+  <action name="actionCalibrate">
+   <property name="text">
+    <string>Calibrate</string>
    </property>
   </action>
  </widget>

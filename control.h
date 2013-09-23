@@ -21,6 +21,8 @@ public slots:
     void lift();
     void lower();
     void zeroing();
+    void stepForward();
+    void stepBack();
 
  private:
     QSerialPort * portti;

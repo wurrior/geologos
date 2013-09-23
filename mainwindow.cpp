@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QMessageBox>
 #include <QFileDialog>
+#include "control.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -69,4 +70,28 @@ void MainWindow::on_actionSave_triggered()
     QString fileName = QFileDialog::getSaveFileName(this,
              tr("Save Measurement Data"), "",
              tr("Geologos data (*.sgd);;All Files (*)"));
+}
+
+void MainWindow::on_actionDown_triggered()
+{
+    Control con;
+    con.lower();
+}
+
+void MainWindow::on_actionUp_triggered()
+{
+    Control con;
+    con.lift();
+}
+
+void MainWindow::on_actionStep_back_triggered()
+{
+    Control con;
+    con.stepBack();
+}
+
+void MainWindow::on_actionCalibrate_triggered()
+{
+    Control con;
+    con.measurePoint();
 }
