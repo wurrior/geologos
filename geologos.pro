@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui serialport
+QT       += core gui serialport concurrent
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,13 +17,18 @@ SOURCES += main.cpp\
     settingswindow.cpp \
     control.cpp \
     canvas.cpp \
-    parallelportdriver.cpp
+    parallelportdriver.cpp \
+    newmeasurement.cpp \
+    measurement.cpp
 
 HEADERS  += mainwindow.h \
     settingswindow.h \
     control.h \
     canvas.h \
-    parallelportdriver.h
+    parallelportdriver.h \
+    newmeasurement.h \
+    measurement.h
 
 FORMS    += mainwindow.ui \
-    settingswindow.ui
+    settingswindow.ui \
+    newmeasurement.ui

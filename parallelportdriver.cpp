@@ -2,21 +2,9 @@
 #include <QDebug>
 #include <QFile>
 
-#if defined(_WIN32) || defined(_WIN64)
-    #include <windows.h>
-#elif __linux
-    // linux
-#elif __unix // all unices not caught above
-    // Unix
-#elif __posix
-    // POSIX
-#endif
-
 PPort::PPort(QObject *parent) :
     QObject(parent)
 {
-    //=======================================================================
-    qDebug() << "Loading!";
     /* Load the library */
     hLib = LoadLibraryA("inpout32.dll");
 
@@ -26,7 +14,6 @@ PPort::PPort(QObject *parent) :
     }
 
     /* get the address of the function */
-
     inp32 = (inpfuncPtr) GetProcAddress(hLib, "Inp32");
 
     if (inp32 == NULL) {
@@ -40,15 +27,14 @@ PPort::PPort(QObject *parent) :
         qDebug() << "output failed";
          return;
     }
-    //=======================================================================
-
 }
 bool PPort::write(const char data)
 {
 
 #if defined(_WIN32) || defined(_WIN64)
-    (oup32)(888, data);
-    return true;//( filu.putChar( data ) );
+    //(oup32)(888, data);
+    qDebug() << "parallel data written";
+    return true;
 #elif __linux
     // linux
 #elif __unix // all unices not caught above

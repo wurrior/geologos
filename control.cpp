@@ -40,7 +40,10 @@ Control::~Control()
  */
 void Control::lift()
 {
-    qDebug() << "mau";
+    // ensure that only one thread is accessing the port:
+    QMutexLocker locker(&pmutex);
+
+    // load settings:
     settings->beginGroup("delays");
     int delay = settings->value("delay1").toInt();
     settings->endGroup();
@@ -57,13 +60,16 @@ void Control::lift()
         pPortti->write( 0 );
     }
     pPortti->write( 0 );
-    qDebug() << "lifting";
+    qDebug() << "lifted";
 }
 /**
  * @brief Control::lower
  */
 void Control::lower()
 {
+    // ensure that only one thread is accessing the port:
+    QMutexLocker locker(&pmutex);
+
     // load settings:
     settings->beginGroup("delays");
     int delay = settings->value("delay1").toInt();
@@ -96,10 +102,14 @@ void Control::lower()
         pPortti->write( 0 );
     }
     pPortti->write( 0 );
+    qDebug() << "lowered";
 }
 
 void Control::zeroing()
 {
+    // ensure that only one thread is accessing the port:
+    QMutexLocker locker(&smutex);
+
     if( !portti->isOpen() );
         //portti->open(OpenMode);
     portti->write("Z");
@@ -107,6 +117,9 @@ void Control::zeroing()
 
 void Control::stepForward()
 {
+    // ensure that only one thread is accessing the port:
+    QMutexLocker locker(&pmutex);
+
     // load settings:
     settings->beginGroup("delays");
     int delay = settings->value("delay2").toInt();
@@ -135,6 +148,9 @@ void Control::stepForward()
 
 void Control::stepBack()
 {
+    // ensure that only one thread is accessing the port:
+    QMutexLocker locker(&pmutex);
+
     // load settings:
     settings->beginGroup("delays");
     int delay = settings->value("delay2").toInt();
@@ -163,6 +179,9 @@ void Control::stepBack()
 
 QString Control::measurePoint()
 {
+    // ensure that only one thread is accessing the port:
+    QMutexLocker locker(&smutex);
+
     char dataStorage[32];
     portti->open(QIODevice::ReadWrite);
     qDebug() << portti->write("M"); // send measurement order
@@ -174,6 +193,10 @@ QString Control::measurePoint()
 
 void Control::stop()
 {
+    // ensure that only one thread is accessing the port:
+    QMutexLocker locker0(&pmutex);
+    QMutexLocker locker1(&smutex);
+
     pPortti->write(0);
     portti->close();
     qDebug() << "measurement stopped!";

@@ -4,7 +4,9 @@
 #include <QMainWindow>
 #include <QCloseEvent>
 #include "settingswindow.h"
+#include "newmeasurement.h"
 #include "control.h"
+#include <QtConcurrentRun>
 
 namespace Ui {
 class MainWindow;
@@ -39,9 +41,12 @@ private slots:
 
     void on_actionCalibrate_triggered();
 
+    void on_actionNew_triggered();
+
 private:
     Ui::MainWindow *ui;
     SettingsWindow *sw;
+    NewMeasurement *nm;
     Control *control;
 
 };

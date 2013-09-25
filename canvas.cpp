@@ -38,6 +38,9 @@ void Canvas::setPoint(QPainter * painter,double x, double y )
     lastY = y;
 }
 
+/*
+ * Might need fixing
+ */
 void Canvas::drawCurve( QList<int> valuesList )
 {
     clearCanvas();

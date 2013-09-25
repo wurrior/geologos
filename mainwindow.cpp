@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     sw = new SettingsWindow(this);
+    nm = new NewMeasurement(this);
     readSettings();
     control = new Control(this);
 }
@@ -18,6 +19,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
     delete sw;
+    delete nm;
     delete control;
 }
 
@@ -74,24 +76,25 @@ void MainWindow::on_actionSave_triggered()
 
 void MainWindow::on_actionDown_triggered()
 {
-    Control con;
-    con.lower();
+    QtConcurrent::run(this->control,&Control::lower);
 }
 
 void MainWindow::on_actionUp_triggered()
 {
-    Control con;
-    con.lift();
+    QtConcurrent::run(this->control,&Control::lift);
 }
 
 void MainWindow::on_actionStep_back_triggered()
 {
-    Control con;
-    con.stepBack();
+    QtConcurrent::run(this->control,&Control::stepBack);
 }
 
 void MainWindow::on_actionCalibrate_triggered()
 {
-    Control con;
-    con.measurePoint();
+    QtConcurrent::run(this->control,&Control::measurePoint);
+}
+
+void MainWindow::on_actionNew_triggered()
+{
+    nm->show();
 }

@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QSerialPort>
 #include <QSettings>
+#include <QMutex>
 #include "parallelportdriver.h"
 
 class Control : public QObject
@@ -28,6 +29,8 @@ public slots:
     QSerialPort * portti;
     QSettings * settings;
     PPort * pPortti;
+    QMutex smutex;
+    QMutex pmutex;
 };
 
 #endif // CONTROL_H
