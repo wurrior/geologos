@@ -5,6 +5,7 @@
 PPort::PPort(QObject *parent) :
     QObject(parent)
 {
+    #if defined(_WIN32) || defined(_WIN64)
     /* Load the library */
     hLib = LoadLibraryA("inpout32.dll");
 
@@ -27,10 +28,13 @@ PPort::PPort(QObject *parent) :
         qDebug() << "output failed";
          return;
     }
+#elif __linux
+    qDebug() << "parallel port not in use";
+#endif
 }
+
 bool PPort::write(const char data)
 {
-
 #if defined(_WIN32) || defined(_WIN64)
     //(oup32)(888, data);
     qDebug() << "parallel data written";

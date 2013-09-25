@@ -6,6 +6,7 @@
 #include <QSettings>
 #include <QMutex>
 #include "parallelportdriver.h"
+#include "measurement.h"
 
 class Control : public QObject
 {
@@ -14,12 +15,13 @@ public:
     explicit Control(QObject *parent = 0);
     ~Control();
     QString measurePoint();
+    bool measureSample( Measurement * m );
 
 signals:
     
 public slots:
     void stop();
-    void lift();
+    void rise();
     void lower();
     void zeroing();
     void stepForward();
@@ -31,6 +33,7 @@ public slots:
     PPort * pPortti;
     QMutex smutex;
     QMutex pmutex;
+    QMutex mmutex;
 };
 
 #endif // CONTROL_H

@@ -69,9 +69,14 @@ void MainWindow::on_actionStop_triggered()
 
 void MainWindow::on_actionSave_triggered()
 {
+    QString results = "hello!";
     QString fileName = QFileDialog::getSaveFileName(this,
-             tr("Save Measurement Data"), "",
-             tr("Geologos data (*.sgd);;All Files (*)"));
+             tr("Save Measurement Data"), "results.csv",
+             tr("Geologos data (*.csv);;All Files (*)"));
+    QFile filu(fileName);
+    filu.open(QIODevice::WriteOnly);
+
+    filu.write(results.toLocal8Bit(),results.length());
 }
 
 void MainWindow::on_actionDown_triggered()
@@ -81,7 +86,7 @@ void MainWindow::on_actionDown_triggered()
 
 void MainWindow::on_actionUp_triggered()
 {
-    QtConcurrent::run(this->control,&Control::lift);
+    QtConcurrent::run(this->control,&Control::rise);
 }
 
 void MainWindow::on_actionStep_back_triggered()
