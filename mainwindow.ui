@@ -132,11 +132,17 @@
    </property>
   </action>
   <action name="actionUp">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Up</string>
    </property>
   </action>
   <action name="actionDown">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Down</string>
    </property>

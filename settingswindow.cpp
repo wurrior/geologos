@@ -3,6 +3,7 @@
 #include <QSerialPortInfo>
 #include <QDebug>
 #include <QMessageBox>
+#include <mainwindow.h>
 
 SettingsWindow::SettingsWindow(QWidget *parent) :
     QDialog(parent),
@@ -61,4 +62,8 @@ void SettingsWindow::on_buttonBox_accepted()
     settings->setValue("delay3",ui->spinBox_delay_3->value());
     settings->endGroup();
 
+}
+void SettingsWindow::on_checkBox_clicked(bool checked)
+{
+    ((MainWindow*)parent())->toggleControls(checked);
 }

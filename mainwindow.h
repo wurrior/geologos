@@ -21,6 +21,8 @@ public:
     ~MainWindow();
     void writeSettings();
     void readSettings();
+    void toggleControls(bool active);
+    Control *getControl();
 
 protected:
     void closeEvent(QCloseEvent *event);
@@ -48,7 +50,6 @@ private:
     SettingsWindow *sw;
     NewMeasurement *nm;
     Control *control;
-
 };
 
 #endif // MAINWINDOW_H

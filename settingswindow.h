@@ -20,6 +20,8 @@ public:
 private slots:
     void on_buttonBox_accepted();
 
+    void on_checkBox_clicked(bool checked);
+
 private:
     Ui::Settings *ui;
     QSettings *settings;

@@ -48,6 +48,17 @@ void MainWindow::readSettings()
     settings.endGroup();
 }
 
+void MainWindow::toggleControls(bool active)
+{
+    ui->actionUp->setEnabled(active);
+    ui->actionDown->setEnabled(active);
+}
+
+Control *MainWindow::getControl()
+{
+    return control;
+}
+
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     writeSettings();
