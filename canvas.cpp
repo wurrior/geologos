@@ -8,6 +8,7 @@ Canvas::Canvas(QWidget *parent) :
     // create image and paint it black
     image = new QImage(1024,1024, QImage::Format_ARGB32);
     clearCanvas();
+    drawCurve(0);
 }
 
 Canvas::~Canvas()
@@ -41,8 +42,17 @@ void Canvas::setPoint(QPainter * painter,double x, double y )
 /*
  * Might need fixing
  */
-void Canvas::drawCurve( QList<int> valuesList )
+void Canvas::drawCurve( QList<int> * valuesList0 )
 {
+    // Sample Data
+    QList<int> valuesList;
+    valuesList.append(100);
+    valuesList.append(123);
+    valuesList.append(1400);
+    valuesList.append(4001);
+    valuesList.append(1222);
+    valuesList.append(15);
+    // end off Sap
     clearCanvas();
     qDebug() << "listSize" << valuesList.size();
     QPainter painter(this->image);
@@ -67,7 +77,7 @@ void Canvas::drawCurve( QList<int> valuesList )
     if( yMaxValue < 1000000 )
     for(int i = 0; i < yMaxValue; i++)
     {
-        if( !(i%10) )
+        if( !(i%100) )
         {
             painter.drawLine(0,1000-i*yMod,1024,1000-i*yMod); // y axis
         }

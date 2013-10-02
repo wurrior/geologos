@@ -65,5 +65,5 @@ void SettingsWindow::on_buttonBox_accepted()
 }
 void SettingsWindow::on_checkBox_clicked(bool checked)
 {
-    ((MainWindow*)parent())->toggleControls(checked);
+    ((MainWindow*)parent())->toggleAdvancedControls(checked);
 }

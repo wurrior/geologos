@@ -29,5 +29,11 @@ void NewMeasurement::on_buttonBox_accepted()
                 10
                 );
 
-    ((MainWindow*) parent())->getControl()->measureSample( m );
+    QtConcurrent::run(((MainWindow*) parent())->getControl(),&Control::measureSample,m);
+}
+
+void NewMeasurement::on_interval_valueChanged(int arg1)
+{
+    if( arg1 < 2 ) ui->interval->setValue(2);
+    else ui->interval->setValue((arg1>>1)<<1);
 }

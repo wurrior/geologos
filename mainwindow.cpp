@@ -13,6 +13,9 @@ MainWindow::MainWindow(QWidget *parent) :
     nm = new NewMeasurement(this);
     readSettings();
     control = new Control(this);
+
+    QObject::connect(control,&Control::measurementStopped,this, &MainWindow::toggleControls);
+
 }
 
 MainWindow::~MainWindow()
@@ -31,7 +34,6 @@ void MainWindow::on_actionSettings_triggered()
 void MainWindow::writeSettings()
 {
     QSettings settings("Stemlux Systems", "Geologos");
-
     settings.beginGroup("MainWindow");
     settings.setValue("size", size());
     settings.setValue("pos", pos());
@@ -48,10 +50,15 @@ void MainWindow::readSettings()
     settings.endGroup();
 }
 
-void MainWindow::toggleControls(bool active)
+void MainWindow::toggleAdvancedControls(bool active)
 {
     ui->actionUp->setEnabled(active);
     ui->actionDown->setEnabled(active);
+}
+
+void MainWindow::toggleControls(bool active)
+{
+    ui->actionNew->setEnabled(active);
 }
 
 Control *MainWindow::getControl()
@@ -97,7 +104,7 @@ void MainWindow::on_actionDown_triggered()
 
 void MainWindow::on_actionUp_triggered()
 {
-    QtConcurrent::run(this->control,&Control::rise);
+    QtConcurrent::run(this->control,&Control::lift);
 }
 
 void MainWindow::on_actionStep_back_triggered()

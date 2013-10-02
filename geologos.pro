@@ -32,3 +32,8 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui \
     settingswindow.ui \
     newmeasurement.ui
+
+RC_FILE = geologos.rc
+
+OTHER_FILES += \
+    geologos.rc

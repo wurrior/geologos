@@ -19,6 +19,8 @@ public:
 private slots:
     void on_buttonBox_accepted();
 
+    void on_interval_valueChanged(int arg1);
+
 private:
     Ui::NewMeasurement *ui;
     Measurement *m;

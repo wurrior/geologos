@@ -13,7 +13,7 @@ public:
 
     void setPoint(QPainter* painter,double x, double y);
     void clearCanvas();
-    void drawCurve(QList<int> valuesList);
+    void drawCurve(QList<int> *valuesList);
 signals:
     
 public slots:

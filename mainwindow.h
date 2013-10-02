@@ -21,6 +21,7 @@ public:
     ~MainWindow();
     void writeSettings();
     void readSettings();
+    void toggleAdvancedControls(bool active);
     void toggleControls(bool active);
     Control *getControl();
 

@@ -18,10 +18,13 @@ public:
     bool measureSample( Measurement * m );
 
 signals:
+    void measurementStopped(bool stopped);
+    void isHigh(bool high);
     
 public slots:
+    void clearStop();
     void stop();
-    void rise();
+    void lift();
     void lower();
     void zeroing();
     void stepForward();
@@ -34,6 +37,8 @@ public slots:
     QMutex smutex;
     QMutex pmutex;
     QMutex mmutex;
+    bool stopped;
+    bool high;
 };
 
 #endif // CONTROL_H
