@@ -36,8 +36,8 @@ PPort::PPort(QObject *parent) :
 bool PPort::write(const char data)
 {
 #if defined(_WIN32) || defined(_WIN64)
-    //(oup32)(888, data);
-    qDebug() << "parallel data written";
+    (oup32)(888, data);
+    //qDebug() << "parallel data written";
     return true;
 #elif __linux
     // linux

@@ -37,3 +37,5 @@ RC_FILE = geologos.rc
 
 OTHER_FILES += \
     geologos.rc
+
+#include ( ${QWT_ROOT}/features/qwt.prf )

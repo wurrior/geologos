@@ -17,6 +17,11 @@ NewMeasurement::~NewMeasurement()
     delete m;
 }
 
+Measurement * NewMeasurement::getCurrentMeasurement()
+{
+    return m;
+}
+
 void NewMeasurement::on_buttonBox_accepted()
 {
     // delete old measurement

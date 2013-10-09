@@ -20,7 +20,8 @@ public:
     void addAirValue(QString val);
     
 signals:
-    
+    void valueAdded();
+
 public slots:
 
 private:

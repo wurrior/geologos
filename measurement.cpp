@@ -1,5 +1,5 @@
 #include "measurement.h"
-
+#include <QDebug>
 /**
  * @brief Measurement::Measurement
  * Setups a new Measurement
@@ -20,9 +20,18 @@ Measurement::Measurement(int begin, int end, int interval, int multiplier, QObje
 
 QString Measurement::toString()
 {
-    QString output;
+    QString output("depth,sample,air");
+    output.append('\n');
+
+    if( results.size() > airValues.size() )
+        airValues.append("0");
+    if( results.size() < airValues.size() )
+        results.append("0");
+
     for( int i = 0; i < results.size(); i++)
     {
+        output.append( QString::number( MBegin + i ) );
+        output.append(',');
         output.append( results.at(i) );
         output.append(',');
         output.append( airValues.at(i) );
@@ -58,11 +67,13 @@ int Measurement::getInterval()
 
 void Measurement::addResult(QString val)
 {
+    qDebug() << "result: " << val;
     results.append(val);
 }
 
 void Measurement::addAirValue(QString val)
 {
+    qDebug() << "air: " << val;
     airValues.append(val);
 }
 

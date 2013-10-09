@@ -1,6 +1,7 @@
 #include "canvas.h"
 #include <QImage>
 #include <QDebug>
+#include <mainwindow.h>
 
 Canvas::Canvas(QWidget *parent) :
     QWidget(parent)
@@ -42,61 +43,59 @@ void Canvas::setPoint(QPainter * painter,double x, double y )
 /*
  * Might need fixing
  */
-void Canvas::drawCurve( QList<int> * valuesList0 )
+void Canvas::drawCurve( QList<int> * valuesList )
 {
     // Sample Data
-    QList<int> valuesList;
-    valuesList.append(100);
-    valuesList.append(123);
-    valuesList.append(1400);
-    valuesList.append(4001);
-    valuesList.append(1222);
-    valuesList.append(15);
     // end off Sap
-    clearCanvas();
-    qDebug() << "listSize" << valuesList.size();
-    QPainter painter(this->image);
-    painter.setRenderHint(QPainter::Antialiasing, false);
-    painter.setPen(QPen(Qt::gray, 1));
+//    clearCanvas();
+//    qDebug() << "listSize" << valuesList.size();
+//    QPainter painter(this->image);
+//    painter.setRenderHint(QPainter::Antialiasing, false);
+//    painter.setPen(QPen(Qt::gray, 1));
 
 
-    int x = 0, xMaxValue = 0, y = 0, yMaxValue = 10;
-    double yMod, xMod;
-    foreach( int value, valuesList )
-    {
-        y = value;
-        if( y > yMaxValue ) yMaxValue = y;
-        xMaxValue++;
+//    int x = 0, xMaxValue = 0, y = 0, yMaxValue = 10;
+//    double yMod, xMod;
+//    foreach( int value, valuesList )
+//    {
+//        y = value;
+//        if( y > yMaxValue ) yMaxValue = y;
+//        xMaxValue++;
 
-    }
-    qDebug() << "xMax: " << xMaxValue;
-    xMod = 1024.0/(xMaxValue+1);
-    yMod = 1000.0/yMaxValue;
+//    }
+//    qDebug() << "xMax: " << xMaxValue;
+//    xMod = 1024.0/(xMaxValue+1);
+//    yMod = 1000.0/yMaxValue;
 
-    // draw grid
-    if( yMaxValue < 1000000 )
-    for(int i = 0; i < yMaxValue; i++)
-    {
-        if( !(i%100) )
-        {
-            painter.drawLine(0,1000-i*yMod,1024,1000-i*yMod); // y axis
-        }
-    }
+//    // draw grid
+//    if( yMaxValue < 1000000 )
+//    for(int i = 0; i < yMaxValue; i++)
+//    {
+//        if( !(i%100) )
+//        {
+//            painter.drawLine(0,1000-i*yMod,1024,1000-i*yMod); // y axis
+//        }
+//    }
 
-    for(int i = 0; i < xMaxValue; i++)
-    {
-        if( !(i%256) )
-        {
-            painter.drawLine(i*xMod,0,i*xMod,1000); // x axis
-        }
-    }
+//    for(int i = 0; i < xMaxValue; i++)
+//    {
+//        if( !(i%100) )
+//        {
+//            painter.drawLine(i*xMod,0,i*xMod,1000); // x axis
+//        }
+//    }
 
-    // draw curve
-    foreach (int value, valuesList) {
-        setPoint(&painter, x*xMod, 1000-(  value*yMod ) );
-        x++;
-    }
-    qDebug() << "xMod" << xMod;
+//    // draw curve
+//    foreach (int value, valuesList) {
+//        setPoint(&painter, x*xMod, 1000-(  value*yMod ) );
+//        x++;
+//    }
+//    qDebug() << "xMod" << xMod;
+//    this->update();
+}
+
+void Canvas::redraw()
+{
     this->update();
 }
 

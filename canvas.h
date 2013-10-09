@@ -17,6 +17,7 @@ public:
 signals:
     
 public slots:
+    void redraw();
 
 protected:
     void paintEvent(QPaintEvent *pe);

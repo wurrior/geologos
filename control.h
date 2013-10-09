@@ -20,6 +20,7 @@ public:
 signals:
     void measurementStopped(bool stopped);
     void isHigh(bool high);
+    void dataReceived();
     
 public slots:
     void clearStop();

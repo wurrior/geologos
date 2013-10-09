@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include <QMessageBox>
 #include <QFileDialog>
-#include "control.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,9 +12,9 @@ MainWindow::MainWindow(QWidget *parent) :
     nm = new NewMeasurement(this);
     readSettings();
     control = new Control(this);
-
+    ui->progressBar->hide();
     QObject::connect(control,&Control::measurementStopped,this, &MainWindow::toggleControls);
-
+    QObject::connect(control,&Control::dataReceived,ui->widget, &Canvas::redraw);
 }
 
 MainWindow::~MainWindow()
@@ -87,14 +86,14 @@ void MainWindow::on_actionStop_triggered()
 
 void MainWindow::on_actionSave_triggered()
 {
-    QString results = "hello!";
+    QString results = nm->getCurrentMeasurement()->toString();
     QString fileName = QFileDialog::getSaveFileName(this,
              tr("Save Measurement Data"), "results.csv",
              tr("Geologos data (*.csv);;All Files (*)"));
     QFile filu(fileName);
     filu.open(QIODevice::WriteOnly);
 
-    filu.write(results.toLocal8Bit(),results.length());
+    filu.write(results.toLocal8Bit() ,results.length());
 }
 
 void MainWindow::on_actionDown_triggered()
