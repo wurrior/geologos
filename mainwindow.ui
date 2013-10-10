@@ -18,7 +18,7 @@
     <item>
      <widget class="QProgressBar" name="progressBar">
       <property name="value">
-       <number>24</number>
+       <number>0</number>
       </property>
      </widget>
     </item>
@@ -109,7 +109,7 @@
     <string>New...</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+N, U</string>
+    <string>U</string>
    </property>
   </action>
   <action name="actionSave">

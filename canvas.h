@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QPainter>
+#define imageWidth 2000
 
 class Canvas : public QWidget
 {
@@ -13,7 +14,9 @@ public:
 
     void setPoint(QPainter* painter,double x, double y);
     void clearCanvas();
-    void drawCurve(QList<int> *valuesList);
+    void drawCurve(QList<int> *curve, int interval=2, int offset = 0);
+    void drawGrid(int steps = imageWidth);
+    QPainter * getPainter();
 signals:
     
 public slots:
@@ -22,6 +25,7 @@ public slots:
 protected:
     void paintEvent(QPaintEvent *pe);
 private:
+    QPainter * ipainter;
     QImage *image;
     double lastX;
     double lastY;

@@ -17,6 +17,8 @@ public:
     QString measurePoint();
     bool measureSample( Measurement * m );
 
+    void backwards();
+    void forwards();
 signals:
     void measurementStopped(bool stopped);
     void isHigh(bool high);

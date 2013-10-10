@@ -155,6 +155,14 @@ void Control::stepForward()
     pPortti->write( 0 );
 }
 
+void Control::forwards()
+{
+    for(int i = 0; i < 1000; i++)
+    {
+        stepBack();
+    }
+}
+
 void Control::stepBack()
 {
     // ensure that only one thread is accessing the port:
@@ -186,6 +194,14 @@ void Control::stepBack()
     }
     pPortti->write( 0 );
     qDebug() << "moved one step back 2mm";
+}
+
+void Control::backwards()
+{
+    for(int i = 0; i < 1000; i++)
+    {
+        stepBack();
+    }
 }
 
 QString Control::measurePoint()

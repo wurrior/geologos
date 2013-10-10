@@ -24,25 +24,30 @@ QString Measurement::toString()
     output.append('\n');
 
     if( results.size() > airValues.size() )
-        airValues.append("0");
+        airValues.append(0);
     if( results.size() < airValues.size() )
-        results.append("0");
+        results.append(0);
 
     for( int i = 0; i < results.size(); i++)
     {
         output.append( QString::number( MBegin + i ) );
         output.append(',');
-        output.append( results.at(i) );
+        output.append( QString::number(results.at(i)) );
         output.append(',');
-        output.append( airValues.at(i) );
+        output.append( QString::number(airValues.at(i)) );
         output.append('\n');
     }
     return output;
 }
 
-QList<QString> Measurement::getValues()
+QList<int> Measurement::getValues()
 {
     return results;
+}
+
+QList<int> Measurement::getAirValues()
+{
+    return airValues;
 }
 
 int Measurement::getBegin()
@@ -67,14 +72,14 @@ int Measurement::getInterval()
 
 void Measurement::addResult(QString val)
 {
-    qDebug() << "result: " << val;
-    results.append(val);
+    results.append(val.toInt());
+    qDebug() << "result: " << results.last();
 }
 
 void Measurement::addAirValue(QString val)
 {
-    qDebug() << "air: " << val;
-    airValues.append(val);
+    airValues.append(val.toInt());
+    qDebug() << "air: " << airValues.last();
 }
 
 Measurement::Measurement(QObject *parent) :

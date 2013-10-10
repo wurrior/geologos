@@ -53,6 +53,7 @@ void SettingsWindow::on_buttonBox_accepted()
 {
     settings->beginGroup("communication");
     settings->setValue("portName", ui->comboBox_com_port->currentText() );
+    settings->setValue("portNumber", ui->lineEdit->text() );
     qDebug() << settings->value("portName").toString();
     settings->endGroup();
 

@@ -5,8 +5,7 @@
 
 NewMeasurement::NewMeasurement(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::NewMeasurement),
-    m(new Measurement)// empty measurement
+    ui(new Ui::NewMeasurement)
 {
     ui->setupUi(this);
 }
@@ -14,27 +13,19 @@ NewMeasurement::NewMeasurement(QWidget *parent) :
 NewMeasurement::~NewMeasurement()
 {
     delete ui;
-    delete m;
-}
-
-Measurement * NewMeasurement::getCurrentMeasurement()
-{
-    return m;
 }
 
 void NewMeasurement::on_buttonBox_accepted()
 {
-    // delete old measurement
-    delete m;
+    ((MainWindow*) parent())->setMeasurement(
     // create new Measurement
-    m = new Measurement(
+     new Measurement(
                 ui->begin->value(),
                 ui->end->value(),
                 ui->interval->value(),
                 10
+                )
                 );
-
-    QtConcurrent::run(((MainWindow*) parent())->getControl(),&Control::measureSample,m);
 }
 
 void NewMeasurement::on_interval_valueChanged(int arg1)

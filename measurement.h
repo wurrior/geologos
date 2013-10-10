@@ -11,7 +11,8 @@ public:
     explicit Measurement(QObject *parent = 0);
     Measurement(int begin, int end ,int interval, int multiplier ,QObject *parent = 0 );
     QString toString();
-    QList<QString> getValues();
+    QList<int> getValues();
+    QList<int> getAirValues();
     int getBegin();
     int getEnd();
     int getMulti();
@@ -31,8 +32,8 @@ private:
     int MInterval;
     int MMulti;
     // results
-    QList<QString> results;
-    QList<QString> airValues;
+    QList<int> results;
+    QList<int> airValues;
 };
 
 #endif // MEASUREMENT_H

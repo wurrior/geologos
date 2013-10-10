@@ -5,7 +5,8 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    m(new Measurement)
 {
     ui->setupUi(this);
     sw = new SettingsWindow(this);
@@ -14,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     control = new Control(this);
     ui->progressBar->hide();
     QObject::connect(control,&Control::measurementStopped,this, &MainWindow::toggleControls);
-    QObject::connect(control,&Control::dataReceived,ui->widget, &Canvas::redraw);
+    QObject::connect(control,&Control::dataReceived,this,&MainWindow::updateCanvas);
 }
 
 MainWindow::~MainWindow()
@@ -22,6 +23,7 @@ MainWindow::~MainWindow()
     delete ui;
     delete sw;
     delete nm;
+    delete m;
     delete control;
 }
 
@@ -60,9 +62,15 @@ void MainWindow::toggleControls(bool active)
     ui->actionNew->setEnabled(active);
 }
 
-Control *MainWindow::getControl()
+void MainWindow::setMeasurement(Measurement *meas)
 {
-    return control;
+    delete m;
+    m = meas;
+    // start measuring:
+    ui->progressBar->setMinimum(0);
+    ui->progressBar->setMaximum((m->getEnd())-(m->getBegin()));
+    ui->progressBar->show();
+    QtConcurrent::run(this->control,&Control::measureSample,m);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -81,12 +89,14 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_actionStop_triggered()
 {
+    ui->progressBar->hide();
+    updateCanvas();
     control->stop();
 }
 
 void MainWindow::on_actionSave_triggered()
 {
-    QString results = nm->getCurrentMeasurement()->toString();
+    QString results = m->toString();
     QString fileName = QFileDialog::getSaveFileName(this,
              tr("Save Measurement Data"), "results.csv",
              tr("Geologos data (*.csv);;All Files (*)"));
@@ -119,4 +129,44 @@ void MainWindow::on_actionCalibrate_triggered()
 void MainWindow::on_actionNew_triggered()
 {
     nm->show();
+}
+
+void MainWindow::updateCanvas()
+{
+//    // get values:
+    QList<int> sval = m->getValues();
+    QList<int> aval = m->getAirValues();
+
+// clear canvas:
+    ui->widget->clearCanvas();
+//    // draw grid:
+    ui->widget->drawGrid(sval.size()*m->getInterval());
+//    // draw air:
+    ui->widget->getPainter()->setPen(QPen(Qt::blue,2));
+    ui->widget->drawCurve( &aval, m->getInterval(), m->getBegin());
+//    // draw values:
+    ui->widget->getPainter()->setPen(QPen(Qt::red,2));
+    ui->widget->drawCurve( &sval, m->getInterval(), m->getBegin());
+//    // draw difference:
+    ui->widget->getPainter()->setPen(QPen(Qt::yellow,2));
+
+    // move progressbar:
+    int progress = (aval.size() + sval.size()) * (m->getInterval()/2);
+    ui->progressBar->setValue( progress );
+    if( progress >= ui->progressBar->maximum() )
+        ui->progressBar->hide();
+    // redraw everything:
+    ui->widget->redraw();
+}
+
+
+
+void MainWindow::on_actionBackwards_triggered()
+{
+    QtConcurrent::run(this->control,&Control::backwards);
+}
+
+void MainWindow::on_actionForwards_triggered()
+{
+    QtConcurrent::run(this->control,&Control::forwards);
 }

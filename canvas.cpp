@@ -3,17 +3,22 @@
 #include <QDebug>
 #include <mainwindow.h>
 
+
 Canvas::Canvas(QWidget *parent) :
     QWidget(parent)
 {
     // create image and paint it black
-    image = new QImage(1024,1024, QImage::Format_ARGB32);
+    image = new QImage(imageWidth,1000, QImage::Format_ARGB32);
+    ipainter = new QPainter(this->image);
+    ipainter->setRenderHint(QPainter::Antialiasing, false);
+    ipainter->setPen(QPen(Qt::gray, 1));
     clearCanvas();
-    drawCurve(0);
+    drawGrid();
 }
 
 Canvas::~Canvas()
 {
+    delete ipainter;
     delete image;
 }
 
@@ -24,7 +29,7 @@ void Canvas::paintEvent(QPaintEvent*pe)
                 this->width()-10,
                 this->height()-10,
                 Qt::IgnoreAspectRatio,
-                Qt::SmoothTransformation);
+                Qt::SmoothTransformation);//.mirrored();
     painter.drawImage(QPoint(5,5),display,this->rect());
 }
 
@@ -34,65 +39,67 @@ void Canvas::setPoint(QPainter * painter,double x, double y )
     painter->setPen(QPen(Qt::yellow, 2));
 
     painter->drawLine(QPointF(lastX,lastY),
-                     QPointF(x,y));
+                      QPointF(x,y));
 
     lastX = x;
     lastY = y;
 }
 
-/*
- * Might need fixing
- */
-void Canvas::drawCurve( QList<int> * valuesList )
+void Canvas::drawGrid(int steps)
 {
-    // Sample Data
-    // end off Sap
-//    clearCanvas();
-//    qDebug() << "listSize" << valuesList.size();
-//    QPainter painter(this->image);
-//    painter.setRenderHint(QPainter::Antialiasing, false);
-//    painter.setPen(QPen(Qt::gray, 1));
+    int x = 0;
+    if(steps == 0) return;
+    ipainter->save();
+    ipainter->setPen(QPen(Qt::gray, 1));
+    ipainter->drawLine(0,900,imageWidth,900); // x-axis
 
-
-//    int x = 0, xMaxValue = 0, y = 0, yMaxValue = 10;
-//    double yMod, xMod;
-//    foreach( int value, valuesList )
-//    {
-//        y = value;
-//        if( y > yMaxValue ) yMaxValue = y;
-//        xMaxValue++;
-
-//    }
-//    qDebug() << "xMax: " << xMaxValue;
-//    xMod = 1024.0/(xMaxValue+1);
-//    yMod = 1000.0/yMaxValue;
-
-//    // draw grid
-//    if( yMaxValue < 1000000 )
-//    for(int i = 0; i < yMaxValue; i++)
-//    {
-//        if( !(i%100) )
-//        {
-//            painter.drawLine(0,1000-i*yMod,1024,1000-i*yMod); // y axis
-//        }
-//    }
-
-//    for(int i = 0; i < xMaxValue; i++)
-//    {
-//        if( !(i%100) )
-//        {
-//            painter.drawLine(i*xMod,0,i*xMod,1000); // x axis
-//        }
-//    }
-
-//    // draw curve
-//    foreach (int value, valuesList) {
-//        setPoint(&painter, x*xMod, 1000-(  value*yMod ) );
-//        x++;
-//    }
-//    qDebug() << "xMod" << xMod;
-//    this->update();
+    for(int i = 0; i < steps; i++) // marks
+    {
+        x = (i*imageWidth)/steps;
+        if( steps < 100 ) ipainter->drawLine( x,900,x,910 );
+        if( (i % 10) == 0 )
+        {
+            if( steps < 100 ) ipainter->drawText(x+4,940,QString::number(i));
+            if( (i % 100) == 0 )
+            {
+                ipainter->drawText(x+4,940,QString::number(i));
+                if( (i % 1000) == 0 ) ipainter->drawLine( x,900,x,960 );
+                else ipainter->drawLine( x,900,x,940 );
+            }
+            else ipainter->drawLine( x,900,x,920 );
+        }
+    }
+    ipainter->restore();
 }
+
+QPainter *Canvas::getPainter()
+{
+    return ipainter;
+}
+
+
+void Canvas::drawCurve( QList<int> * curve,int interval, int offset )
+{
+    if(curve->size() == 0) return; // nothing to draw
+    int x1=offset, x2=offset, steps=curve->size();
+    int factor = (imageWidth*interval)/steps;
+    ipainter->save();
+    QMatrix m;
+    m.translate( 0, 900 );
+    m.scale( 1, -1 );
+    ipainter->setMatrix( m );
+    ipainter->setRenderHint(QPainter::Antialiasing, true);
+    int lastYvalue = curve->at(0);
+    for( int i = 1; i < curve->size(); i++)
+    {
+        x1 = (i+offset-1)*factor;
+        x2 = (i+offset)*factor;
+        ipainter->drawLine(x1,lastYvalue/10,x2,curve->at(i)/10);
+        lastYvalue = curve->at(i);
+    }
+    ipainter->restore();
+}
+
 
 void Canvas::redraw()
 {
@@ -101,8 +108,7 @@ void Canvas::redraw()
 
 void Canvas::clearCanvas()
 {
-    QPainter painter(this->image);
-    painter.fillRect(0,0,1024,1024,Qt::black);
+    ipainter->fillRect(0,0,imageWidth,1000,Qt::black);
     lastX = lastY = 0;
     this->update();
 }

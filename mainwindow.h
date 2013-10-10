@@ -22,7 +22,10 @@ public:
     void readSettings();
     void toggleAdvancedControls(bool active);
     void toggleControls(bool active);
-    Control *getControl();
+    void setMeasurement(Measurement * meas);
+
+public slots:
+    void updateCanvas();
 
 protected:
     void closeEvent(QCloseEvent *event);
@@ -45,11 +48,16 @@ private slots:
 
     void on_actionNew_triggered();
 
+    void on_actionBackwards_triggered();
+
+    void on_actionForwards_triggered();
+
 private:
     Ui::MainWindow *ui;
     SettingsWindow *sw;
     NewMeasurement *nm;
     Control *control;
+    Measurement * m;
 };
 
 #endif // MAINWINDOW_H

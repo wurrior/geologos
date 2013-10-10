@@ -15,7 +15,6 @@ class NewMeasurement : public QDialog
 public:
     explicit NewMeasurement(QWidget *parent = 0);
     ~NewMeasurement();
-    Measurement *getCurrentMeasurement();
     
 private slots:
     void on_buttonBox_accepted();
@@ -24,7 +23,6 @@ private slots:
 
 private:
     Ui::NewMeasurement *ui;
-    Measurement *m;
 };
 
 #endif // NEWMEASUREMENT_H
